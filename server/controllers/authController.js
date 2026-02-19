@@ -71,11 +71,10 @@ const login = async (req, res) => {
 
 
 const logout = (req, res) => {
-    res.cookie('jwt', '', {
+    res.clearCookie('jwt', {
         httpOnly: true,
         secure: process.env.NODE_ENV === 'PROD',
         sameSite: true,
-        maxAge: 0
     });
 
     res.status(200).json({ msg: 'Logged out successfully' });
