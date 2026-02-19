@@ -56,7 +56,7 @@ const login = async (req, res) => {
 
     if (!isMatch) {
         const error = new Error('Invalid credentials');
-        error.status = 400;
+        error.status = 401;
         throw error;
     }
 
