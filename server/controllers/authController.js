@@ -73,7 +73,6 @@ const login = async (req, res) => {
     });
 };
 
-
 const logout = (req, res) => {
     res.clearCookie('jwt', {
         httpOnly: true,
@@ -84,4 +83,16 @@ const logout = (req, res) => {
     res.status(200).json({ msg: 'Logged out successfully' });
 };
 
-module.exports = { register, login, logout };
+const me = async (req, res) => {
+    const user = req.user;
+    
+    res.status(200).json({
+        user: {
+            id: user._id,
+            name: user.name,
+            email: user.email
+        }
+    });
+};
+
+module.exports = { register, login, logout, me };
