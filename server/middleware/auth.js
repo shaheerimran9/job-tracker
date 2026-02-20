@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken');
 const User = require('../models/User');
 
 const auth = async (req, res, next) => {
-    const token = req.cookies.jwt;
+    const token = req.cookies.jwt || req.headers.authorization?.split(' ')[1];
 
     if (!token) {
         const error = new Error('Unauthorized: No token provided');
