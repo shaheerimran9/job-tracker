@@ -1,4 +1,4 @@
-import { useState, createContext, useContext } from 'react';
+import { useState, useEffect, createContext, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import api from '../api/axios';
 
@@ -10,6 +10,18 @@ export const AuthProvider = ({ children }) => {
     const [error, setError] = useState(null);
     const navigate = useNavigate();
 
+    useEffect(() => {
+        const checkAuth = async () => {
+            try {
+                const response = await api.get('/auth/me');
+                setUser(response.data.user);
+            } catch (err) {
+                setUser(null);
+            }
+        };
+        checkAuth();
+    }, []);
+
     const register = async (name, email, password) => {
         setLoading(true)
         setError(null);
@@ -19,7 +31,7 @@ export const AuthProvider = ({ children }) => {
             setUser(response.data.user);
             navigate('/dashboard');
         } catch (err) {
-            setError(err.response?.data?.message || 'Registration failed');
+            setError(err.response?.data?.error || 'Registration failed');
         } finally {
             setLoading(false);
         }
@@ -33,7 +45,7 @@ export const AuthProvider = ({ children }) => {
             setUser(response.data.user);
             navigate('/dashboard');
         } catch (err) {
-            setError(err.response?.data?.message || 'Login failed');
+            setError(err.response?.data?.error || 'Login failed');
         } finally {
             setLoading(false);
         }
