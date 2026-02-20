@@ -23,7 +23,7 @@ const LoginPage = () => {
             <h2>Login Page</h2>
             <form onSubmit={handleSubmit}>
                 <input type='email' placeholder='Email' value={email} onChange={(e) => setEmail(e.target.value)} />
-                <input type='password' placeholder='Email' value={password} onChange={(e) => setPassword(e.target.value)} />;
+                <input type='password' placeholder='Password' value={password} onChange={(e) => setPassword(e.target.value)} />
                 <button type='submit' disabled={loading}>
                     {loading ? 'Logging in...' : 'Login'}
                 </button>
