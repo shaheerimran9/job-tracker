@@ -36,9 +36,11 @@ const register = async (req, res) => {
     generateTokenAndSetCookie(res, newUser._id);
 
     res.status(201).json({
-        id: newUser._id,
-        name: newUser.name,
-        email: newUser.email
+        user: {
+            id: newUser._id,
+            name: newUser.name,
+            email: newUser.email
+        }
     });
 };
 
@@ -63,9 +65,11 @@ const login = async (req, res) => {
     generateTokenAndSetCookie(res, user._id);
 
     res.status(200).json({
-        id: user._id,
-        name: user.name,
-        email: user.email
+        user: {
+            id: user._id,
+            name: user.name,
+            email: user.email
+        }
     });
 };
 
