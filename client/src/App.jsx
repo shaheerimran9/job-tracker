@@ -5,6 +5,7 @@ import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
 import DashboardPage from "./pages/DashboardPage";
 import ProtectedRoute from "./components/ProtectedRoute";
+import JobDetailPage from "./pages/JobDetailPage";
 
 const App = () => {
   const { user } = useAuth();
@@ -16,6 +17,11 @@ const App = () => {
       <Route path='/dashboard' element={
         <ProtectedRoute>
           <DashboardPage />
+        </ProtectedRoute>
+      } />
+      <Route path='/jobs/:id' element={
+        <ProtectedRoute>
+          <JobDetailPage />
         </ProtectedRoute>
       } />
       <Route path='/' element={<Navigate to={user ? '/dashboard' : '/login'} />} />
