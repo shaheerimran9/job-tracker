@@ -41,7 +41,7 @@ const DashboardPage = () => {
                     return (
                         <h1
                             key={job._id}
-                            style={{cursor: 'pointer'}}
+                            style={{ cursor: 'pointer' }}
                             onClick={() => navigate(`/jobs/${job._id}`)}
                         >
                             {job.company}
@@ -49,6 +49,7 @@ const DashboardPage = () => {
                     )
                 })}
             </div>
+            <button onClick={() => navigate('/jobs/create')}>Add job</button>
         </>
     );
 }
