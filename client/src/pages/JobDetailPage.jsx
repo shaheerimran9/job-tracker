@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import api from "../api/axios";
 
 const JobDetailPage = () => {
@@ -7,6 +7,8 @@ const JobDetailPage = () => {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
     const [job, setJob] = useState(null);
+
+    const navigate = useNavigate();
 
     const fetchJob = async () => {
         setLoading(true);
@@ -22,9 +24,25 @@ const JobDetailPage = () => {
         }
     };
 
+    const handleDelete = async () => {
+        const confirmDelete = window.confirm('Are you sure you want to delete this job?');
+        if (!confirmDelete) return;
+
+        try {
+            await api.delete(`/jobs/${id}`);
+            navigate('/dashboard');
+        } catch (err) {
+            setError(err.response?.data?.message || 'Failed to delete job');
+        }
+    };
+
+    const handleEdit = () => {
+        navigate(`/jobs/${id}/edit`)
+    }
+
     useEffect(() => {
         fetchJob();
-    }, []);
+    }, [id]);
 
     if (loading) return <p>Loading...</p>
     if (error) return <p style={{ color: 'red' }}>{error}</p>
@@ -38,6 +56,8 @@ const JobDetailPage = () => {
             <p>Status: {job.status}</p>
             <p>Date Applied: {new Date(job.dateApplied).toLocaleDateString()}</p>
             <p>Notes: {job.notes || 'No notes'}</p>
+            <button onClick={handleEdit} style={{ background: 'blue', color: 'white', cursor: 'pointer' }}>Edit Job Details</button>
+            <button onClick={handleDelete} style={{ background: 'red', color: 'white', cursor: 'pointer' }}>Delete Job</button>
         </>
     );
 }
