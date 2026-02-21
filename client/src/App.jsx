@@ -6,6 +6,8 @@ import RegisterPage from "./pages/RegisterPage";
 import DashboardPage from "./pages/DashboardPage";
 import ProtectedRoute from "./components/ProtectedRoute";
 import JobDetailPage from "./pages/JobDetailPage";
+import JobFormPage from "./pages/JobFormPage";
+import CreateJobPage from "./pages/CreateJobPage";
 
 const App = () => {
   const { user } = useAuth();
@@ -22,6 +24,16 @@ const App = () => {
       <Route path='/jobs/:id' element={
         <ProtectedRoute>
           <JobDetailPage />
+        </ProtectedRoute>
+      } />
+      <Route path='/jobs/create' element={
+        <ProtectedRoute>
+          <CreateJobPage />
+        </ProtectedRoute>
+      } />
+      <Route path='/jobs/:id/edit' element={
+        <ProtectedRoute>
+          <JobFormPage />
         </ProtectedRoute>
       } />
       <Route path='/' element={<Navigate to={user ? '/dashboard' : '/login'} />} />
