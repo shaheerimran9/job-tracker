@@ -5,6 +5,13 @@ const getAllJobs = async (req, res) => {
     res.status(200).json({ jobs, count: jobs.length })
 };
 
+const getJob = async (req, res) => {
+    const { id: jobId } = req.params;
+    
+    const job = await Job.findById(jobId);
+    res.status(200).json({ job });
+};
+
 const createJob = async (req, res) => {
     const { company, role, status, notes } = req.body;
 
@@ -80,4 +87,4 @@ const deleteJob = async (req, res) => {
     res.status(200).json({ 'msg': `Successfully deleted job: ${jobId}` });
 };
 
-module.exports = { getAllJobs, createJob, updateJob, deleteJob }
+module.exports = { getAllJobs, getJob, createJob, updateJob, deleteJob }
