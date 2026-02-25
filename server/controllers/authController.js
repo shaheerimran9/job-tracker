@@ -10,7 +10,7 @@ const generateTokenAndSetCookie = (res, userId) => {
 
     res.cookie('jwt', token, {
         httpOnly: true,
-        secure: process.env.NODE_ENV === 'PROD',
+        secure: process.env.NODE_ENV === 'production',
         sameSite: 'strict',
         maxAge: 60 * 60 * 1000
     })
@@ -76,7 +76,7 @@ const login = async (req, res) => {
 const logout = (req, res) => {
     res.clearCookie('jwt', {
         httpOnly: true,
-        secure: process.env.NODE_ENV === 'PROD',
+        secure: process.env.NODE_ENV === 'production',
         sameSite: true,
     });
 
@@ -85,7 +85,7 @@ const logout = (req, res) => {
 
 const me = async (req, res) => {
     const user = req.user;
-    
+
     res.status(200).json({
         user: {
             id: user._id,
